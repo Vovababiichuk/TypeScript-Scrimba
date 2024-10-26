@@ -67,7 +67,7 @@ function completeOrder(orderId: number): Order | undefined {
   return order;
 }
 
-export function getPizzaDetail(identifier: string | number): Pizza | undefined {
+function getPizzaDetail(identifier: string | number): Pizza | undefined {
   if (typeof identifier === "string") {
     return menu.find(
       (pizza) => pizza.name.toLowerCase() === identifier.toLowerCase()
@@ -81,6 +81,51 @@ export function getPizzaDetail(identifier: string | number): Pizza | undefined {
   }
 }
 
-// addNewPizza({ id: nextPizzaId++, name: "Chicken Bacon Ranch", price: 12 })
-// addNewPizza({ id: nextPizzaId++, name: "BBQ Chicken", price: 12 })
-// addNewPizza({ id: nextPizzaId++, name: "Spicy Sausage", price: 11 })
+// Test placing an order
+const testOrder = placeOrder(menu[0]);
+if (testOrder) {
+  console.log("Order placed:", testOrder);
+  console.log("Cash in register:", cashInRegister);
+} else {
+  console.error("Failed to place order!");
+}
+
+// Test completing an order
+const completedOrder = completeOrder(testOrder?.id as number);
+if (completedOrder) {
+  console.log("Order completed:", completedOrder);
+} else {
+  console.error("Order completion failed!");
+}
+
+// Test getting pizza details by name
+const pizzaByName = getPizzaDetail("Pepperoni");
+if (pizzaByName) {
+  console.log("Pizza details:", pizzaByName);
+} else {
+  console.error("Pizza not found!");
+}
+
+// Test getting pizza details by ID
+const pizzaById = getPizzaDetail(2);
+if (pizzaById) {
+  console.log("Pizza details:", pizzaById);
+} else {
+  console.error("Pizza not found!");
+}
+
+// Test adding a new pizza
+const newPizza = {
+  id: nextPizzaId++,
+  name: "BBQ Chicken",
+  price: 12,
+};
+
+const addedPizza = addNewPizza(newPizza);
+
+if (addedPizza) {
+  console.log("Pizza added:", addedPizza);
+  console.log("Menu length:", menu.length);
+} else {
+  console.error("Failed to add pizza!");
+}
